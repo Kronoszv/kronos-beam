@@ -1,5 +1,5 @@
 local enabled = false
-local timer_opti = 1000
+local sleep = 1000
 
 RegisterCommand('+Beam', function()
 	local ped = PlayerPedId()
@@ -7,12 +7,12 @@ RegisterCommand('+Beam', function()
 		if GetSelectedPedWeapon(ped) == GetHashKey(theWeapon) then
 			if enabled then
 			enabled = false
-			timer_opti = 1000
+			sleep = 1000
 		else
 			Citizen.CreateThread(function()
 				enabled = true
 				while enabled do 
-					timer_opti = 1000
+					sleep = 1000
 					local camview = GetFollowPedCamViewMode()
 					local crouch = GetPedStealthMovement(ped)
 					if IsPlayerFreeAiming(PlayerId()) then
@@ -27,7 +27,7 @@ RegisterCommand('+Beam', function()
 							end
 						end
 					end
-					Citizen.Wait(timer_opti)
+					Citizen.Wait(sleep)
 				end
 			end)
 		end
